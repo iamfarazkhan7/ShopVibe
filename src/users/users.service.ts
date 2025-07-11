@@ -11,6 +11,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
+import { use } from 'passport';
 
 @Injectable()
 export class UsersService {
@@ -74,32 +75,108 @@ export class UsersService {
   }
 
   async LoginUser({ email, password }: LoginUserDto) {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: { email },
+      });
 
-    if (!user) {
-      throw new UnauthorizedException('Invalid email');
-    }
+      if (!user) {
+        throw new UnauthorizedException('Invalid email');
+      }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid password');
-    }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        throw new UnauthorizedException('Invalid password');
+      }
 
-    const tokens = await this.generateTokens(user.id, user.email);
+      const tokens = await this.generateTokens(user.id, user.email);
 
-    await this.updateUserRefreshToken(user.id, tokens.refresh_token);
+      await this.updateUserRefreshToken(user.id, tokens.refresh_token);
 
-    const {
-      password: _password,
-      refreshToken: _refreshToken,
-      ...safeUser
-    } = user;
+      const {
+        password: _password,
+        refreshToken: _refreshToken,
+        ...safeUser
+      } = user;
 
-    return {
+      console.log(safeUser, 'safeuser');
+      return {
         user: safeUser,
-        ...tokens
+        ...tokens,
+      };
+    } catch (error) {
+      console.log('Error Logging in user', error);
+
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException('Login failed');
+    }
+  }
+
+  async getUserById(userId: string) {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+          createdAt: true,
+        },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('User not found');
+      }
+      return user;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      throw new InternalServerErrorException('Failed to fetch user');
+    }
+  }
+
+  async Logout(userId: string) {
+    try {
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: { refreshToken: null },
+      });
+
+      return { message: 'Logout successful' };
+    } catch (error) {
+      console.error('Logout error:', error);
+      throw new InternalServerErrorException('Logout failed');
+    }
+  }
+
+  async refreshTokens(refresh_token: string) {
+    try {
+      const userId = this.extractUserIdFromToken(refresh_token);
+
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user || !user.refreshToken) {
+        throw new UnauthorizedException('Acess Denied');
+      }
+
+      const isMatch = await bcrypt.compare(refresh_token, user.refreshToken);
+
+      if (!isMatch) {
+        throw new UnauthorizedException('Invalid Refresh Token');
+      }
+
+      const tokens = await this.generateTokens(user.id, user.email);
+      await this.updateUserRefreshToken(user.id, tokens.refresh_token);
+
+      return tokens;
+    } catch (error) {
+      console.error('Refresh error:', error);
+      throw new UnauthorizedException('Token refresh failed');
     }
   }
 
@@ -126,5 +203,17 @@ export class UsersService {
       where: { id: userId },
       data: { refreshToken: hashedToken },
     });
+  }
+
+  private extractUserIdFromToken(token: string): string {
+    try {
+      const payload = this.jwt.verify(token, {
+        secret: this.config.get('JWT_ACCESS_SECRET'),
+      });
+
+      return payload.sub;
+    } catch (error) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 }
