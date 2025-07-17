@@ -1,0 +1,68 @@
+### 🔐 Signup
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+  "email": "testuser1@example.com",
+  "password": "password123",
+  "name": "Faraz Khan",
+  "phone": "04903203920"
+}
+
+###
+
+### 🔐 Signin
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "testuser1@example.com",
+  "password": "newpass456"
+}
+
+###
+
+### 👤 Get Current User
+GET http://localhost:3000/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
+
+###
+
+### ✏️ Update Profile (name, avatar, phone)
+PATCH http://localhost:3000/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
+
+{
+  "name": "Updated Faraz",
+  "avatarUrl": "https://example.com/avatar.jpg",
+  "phone": "+923001234567"
+}
+
+###
+
+### 🔁 Refresh Access Token
+POST http://localhost:3000/auth/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTMzNTYyODh9.a3ooxTRs-FC332VZw29a9wht4vMnutobuwDADSto57A"
+}
+
+###
+
+### 🔒 Reset Password
+PATCH http://localhost:3000/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "testuser1@example.com",
+  "currentPassword": "password123",
+  "newPassword": "newpass456"
+}
+
+###
+
+### 🚪 Logout
+PATCH http://localhost:3000/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
