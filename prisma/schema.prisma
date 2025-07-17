@@ -15,9 +15,13 @@ model User {
   role           Role     @default(USER)
   emailVerified  Boolean  @default(false)
   refreshToken   String?
+  avatarUrl      String?
+  phone          String?
+  isActive       Boolean  @default(true)
+  lastLogin      DateTime?
+  provider       String?
   createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt @default(now())
-
+  updatedAt      DateTime @updatedAt
 }
 
 enum Role {
