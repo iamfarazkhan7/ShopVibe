@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Patch,
   Post,
   Req,
   UnauthorizedException,
@@ -16,6 +17,9 @@ import { UserPayload } from 'src/types/user-payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { RefreshTokenDto } from 'src/dtos/refresh-token.dto';
+import { ResetPasswordDto } from 'src/dtos/reset-passsword.dto';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Roles } from 'src/decorators/role.decorator';
 
 @Controller('auth')
 export class UsersController {
@@ -32,12 +36,11 @@ export class UsersController {
 
   @Post('/signin')
   LoginUser(@Body() body: LoginUserDto) {
-    console.log(body, 'bosy in Login');
-
     return this.usersService.LoginUser(body);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('USER', 'ADMIN', 'SUPERADMIN')
   @Get('me')
   GetMe(@CurrentUser() user: UserPayload) {
     return this.usersService.getUserById(user.userId);
@@ -48,10 +51,14 @@ export class UsersController {
     return this.usersService.refreshTokens(body.refresh_token);
   }
 
-  @Post('logout')
   @UseGuards(JwtAuthGuard)
-  logout(@Req() req: Request & { user?: { userId: string; email: string } }) {
-    console.log(req.user);
-    return this.usersService.Logout(req.user!.userId);
+  @Patch('logout')
+  logout(@CurrentUser() user: { userId: string; email: string }) {
+    return this.usersService.Logout(user.userId);
+  }
+
+  @Patch('reset-password')
+  async resetPassword(@Body() body: ResetPasswordDto) {
+    return this.usersService.resetPassword(body);
   }
 }

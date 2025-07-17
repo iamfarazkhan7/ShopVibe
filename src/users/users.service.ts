@@ -12,6 +12,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
 import { use } from 'passport';
+import { ResetPasswordDto } from 'src/dtos/reset-passsword.dto';
 
 @Injectable()
 export class UsersService {
@@ -89,7 +90,7 @@ export class UsersService {
         throw new UnauthorizedException('Invalid password');
       }
 
-      const tokens = await this.generateTokens(user.id, user.email);
+      const tokens = await this.generateTokens(user.id, user.email, user.role);
 
       await this.updateUserRefreshToken(user.id, tokens.refresh_token);
 
@@ -139,6 +140,7 @@ export class UsersService {
   }
 
   async Logout(userId: string) {
+    console.log('Logout Service: userId =', userId);
     try {
       await this.prisma.user.update({
         where: { id: userId },
@@ -170,7 +172,7 @@ export class UsersService {
         throw new UnauthorizedException('Invalid Refresh Token');
       }
 
-      const tokens = await this.generateTokens(user.id, user.email);
+      const tokens = await this.generateTokens(user.id, user.email, user.role);
       await this.updateUserRefreshToken(user.id, tokens.refresh_token);
 
       return tokens;
@@ -180,12 +182,52 @@ export class UsersService {
     }
   }
 
-  private async generateTokens(userId: string, email: string) {
-    const payload = { sub: userId, email };
+  async resetPassword({
+    email,
+    currentPassword,
+    newPassword,
+  }: ResetPasswordDto) {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: { email },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('User not found');
+      }
+
+      const isOldPasswordValid = await bcrypt.compare(
+        currentPassword,
+        user.password,
+      );
+
+      if (!isOldPasswordValid) {
+        throw new UnauthorizedException('Invalid current password');
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      await this.prisma.user.update({
+        where: { email },
+        data: {
+          password: hashedPassword,
+          refreshToken: null,
+        },
+      });
+
+      return { message: 'Password reset successfully' };
+    } catch (error) {
+      console.error(`Error resetting password for user ${email}:`, error);
+      throw new InternalServerErrorException('Error resetting password');
+    }
+  }
+
+  private async generateTokens(userId: string, email: string, role: string) {
+    const payload = { sub: userId, email, role };
 
     const access_token = await this.jwt.signAsync(payload, {
       secret: this.config.get<string>('JWT_ACCESS_SECRET'),
-      expiresIn: '15m',
+      expiresIn: '2m',
     });
 
     const refresh_token = await this.jwt.signAsync(payload, {
