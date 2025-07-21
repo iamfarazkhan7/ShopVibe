@@ -109,7 +109,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMDk1NDY0LCJleHAiOjE3NTMxMzg2NjR9.dCs2r5I1d7Ysvw6TG-hHJdknszf4CAB5KPwSbTgY1Sg
 
 {
-  "title": "iPhone 11",
+  "title": "iPhone 12",
   "description": "Latest Apple phone",
   "price": 700.00,
   "stock": 15,
@@ -135,3 +135,34 @@ GET http://localhost:3000/product?category=&minPrice=100&maxPrice=&search=iphone
 
 ### 📦 Get Product by ID
 GET http://localhost:3000/product/9d123b72-dea0-4563-b6dd-3cca1951cacb
+
+
+### 📦 Get Cart
+GET http://localhost:3000/cart
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo
+
+
+### ➕ Add to Cart
+POST http://localhost:3000/cart/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo
+
+{
+  "productId": "dd470007-41c8-4a32-b11a-cb98d4d0587b",
+  "quantity": 9
+}
+
+
+### ✏️ Update Cart Item Quantity
+PATCH http://localhost:3000/cart/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo
+
+{
+  "productId": "97991d6b-2df3-4e37-9a3c-7caff01412b4",
+  "quantity": 5
+}
+
+### ❌ Remove Item from Cart
+DELETE http://localhost:3000/cart/remove?productId=dd470007-41c8-4a32-b11a-cb98d4d0587b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo
