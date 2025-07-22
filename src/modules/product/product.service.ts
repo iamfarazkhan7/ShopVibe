@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProductDto } from 'src/dtos/create-product.dto';
 import { UpdateProductDto } from 'src/dtos/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -8,7 +13,11 @@ export class ProductService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateProductDto) {
-    return this.prisma.product.create({ data: dto });
+    try {
+      return await this.prisma.product.create({ data: dto });
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to create product');
+    }
   }
 
   async findAll(query: {
@@ -18,41 +27,64 @@ export class ProductService {
     rating?: number;
     search?: string;
   }) {
-    const { categoryId, minPrice, maxPrice, rating, search } = query;
-
-    return this.prisma.product.findMany({
-      where: {
-        AND: [
-          categoryId ? { categoryId } : {},
-          minPrice ? { price: { gte: minPrice } } : {},
-          maxPrice ? { price: { lte: maxPrice } } : {},
-          rating ? { rating: { gte: rating } } : {},
-          search
-            ? {
-                OR: [
-                  { title: { contains: search, mode: 'insensitive' } },
-                  { description: { contains: search, mode: 'insensitive' } },
-                ],
-              }
-            : {},
-        ],
-      },
-    });
+    try {
+      const { categoryId, minPrice, maxPrice, rating, search } = query;
+      return await this.prisma.product.findMany({
+        where: {
+          AND: [
+            categoryId ? { categoryId } : {},
+            minPrice ? { price: { gte: minPrice } } : {},
+            maxPrice ? { price: { lte: maxPrice } } : {},
+            rating ? { rating: { gte: rating } } : {},
+            search
+              ? {
+                  OR: [
+                    { title: { contains: search, mode: 'insensitive' } },
+                    { description: { contains: search, mode: 'insensitive' } },
+                  ],
+                }
+              : {},
+          ],
+        },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to fetch products');
+    }
   }
 
   async findOne(id: string) {
-    return this.prisma.product.findUnique({
-      where: { id },
-    });
+    try {
+      const product = await this.prisma.product.findUnique({
+        where: { id },
+      });
+      if (!product) {
+        throw new NotFoundException('Product not found');
+      }
+      return product;
+    } catch (error) {
+      if (error instanceof NotFoundException) throw error;
+      throw new InternalServerErrorException('Failed to fetch product');
+    }
   }
 
   async update(id: string, dto: UpdateProductDto) {
-    return this.prisma.product.update({ where: { id }, data: dto });
+    try {
+      const product = await this.prisma.product.update({
+        where: { id },
+        data: dto,
+      });
+      return product;
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to update product');
+    }
   }
 
   async remove(id: string) {
-    return this.prisma.product.delete({
-      where: { id },
-    });
+    try {
+      await this.prisma.product.delete({ where: { id } });
+      return { message: 'Product deleted successfully' };
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to delete product');
+    }
   }
 }

@@ -1,0 +1,12 @@
+### ✅ Create a review (user must be logged in)
+POST http://localhost:3000/review/b5ae63bb-faba-4d73-b19b-9747c58f1f42
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTkxMDEwLCJleHAiOjE3NTMyMzQyMTB9.7faIlPbRK-CIPbNQhj9IcaYQuIJFwBcm5Yw2G_VxcjY
+
+{
+  "rating": 5,
+  "comment": "Amazing product!"
+}
+
+### ✅ Get all reviews for a product
+GET http://localhost:3000/review/b5ae63bb-faba-4d73-b19b-9747c58f1f42

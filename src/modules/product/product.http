@@ -1,0 +1,32 @@
+### ➕ Create Product (Admin Only)
+POST http://localhost:3000/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTgwNTgwLCJleHAiOjE3NTMyMjM3ODB9.xjmfQB7-Wrce4iAOCPTq50qZsUJEn5m0kgCSFsa-_a4
+
+{
+  "title": "iPhone 15 pro max",
+  "description": "Latest Apple phone",
+  "price": 2500.00,
+  "stock": 56,
+  "images": ["https://cdn.apple.com/iphone15.jpg"],
+  "categoryId": "7d328f92-0064-4cd3-85ac-89ee8f407ae9"
+}
+
+### ✏️ Update Product (Admin Only)
+PATCH http://localhost:3000/product/97991d6b-2df3-4e37-9a3c-7caff01412b4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMDk1NDY0LCJleHAiOjE3NTMxMzg2NjR9.dCs2r5I1d7Ysvw6TG-hHJdknszf4CAB5KPwSbTgY1Sg
+
+{
+  "price": 800,
+  "stock": 10
+}
+
+### ❌ Delete Product (Admin Only)
+DELETE http://localhost:3000/product/9d123b72-dea0-4563-b6dd-3cca1951cacb
+
+### 📦 Get All Products (with filters)
+GET http://localhost:3000/product?category=&minPrice=100&maxPrice=&search=iphone+11&minRating=
+
+### 📦 Get Product by ID
+GET http://localhost:3000/product/9d123b72-dea0-4563-b6dd-3cca1951cacb

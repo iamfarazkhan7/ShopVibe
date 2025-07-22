@@ -1,0 +1,21 @@
+### 🛒 Place Order (Checkout with Items)
+POST http://localhost:3000/order/checkout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTgwNTgwLCJleHAiOjE3NTMyMjM3ODB9.xjmfQB7-Wrce4iAOCPTq50qZsUJEn5m0kgCSFsa-_a4
+
+{
+  "items": [
+    {
+      "productId": "97991d6b-2df3-4e37-9a3c-7caff01412b4",
+      "quantity": 3
+    },
+    {
+      "productId": "b5ae63bb-faba-4d73-b19b-9747c58f1f42",
+      "quantity": 2
+    }
+  ]
+}
+
+### 📦 Get My Orders
+GET http://localhost:3000/order
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTgwNTgwLCJleHAiOjE3NTMyMjM3ODB9.xjmfQB7-Wrce4iAOCPTq50qZsUJEn5m0kgCSFsa-_a4

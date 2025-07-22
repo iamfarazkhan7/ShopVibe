@@ -14,15 +14,15 @@ import { CreateProductDto } from 'src/dtos/create-product.dto';
 import { UpdateProductDto } from 'src/dtos/update-product.dto';
 import { FindProductDto } from 'src/dtos/product-filter.dto';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { ApiResponse } from 'src/helper/api-response';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  findAll(@Query() query: any) {
+  async findAll(@Query() query: any) {
     const { minPrice, maxPrice, rating, ...rest } = query;
-
     const parsedQuery = {
       ...rest,
       minPrice:
@@ -31,28 +31,32 @@ export class ProductController {
         maxPrice && !isNaN(Number(maxPrice)) ? Number(maxPrice) : undefined,
       rating: rating && !isNaN(Number(rating)) ? Number(rating) : undefined,
     };
-
-    return this.productService.findAll(parsedQuery);
+    const products = await this.productService.findAll(parsedQuery);
+    return ApiResponse.success('Products fetched successfully', products);
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string) {
-    return this.productService.findOne(id);
+  async getOne(@Param('id') id: string) {
+    const product = await this.productService.findOne(id);
+    return ApiResponse.success('Product fetched successfully', product);
   }
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Body() dto: CreateProductDto) {
-    return this.productService.create(dto);
+  async create(@Body() dto: CreateProductDto) {
+    const product = await this.productService.create(dto);
+    return ApiResponse.success('Product created successfully', product);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
-    return this.productService.update(id, dto);
+  async update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
+    const product = await this.productService.update(id, dto);
+    return ApiResponse.success('Product updated successfully', product);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productService.remove(id);
+  async remove(@Param('id') id: string) {
+    await this.productService.remove(id);
+    return ApiResponse.success('Product deleted successfully');
   }
 }

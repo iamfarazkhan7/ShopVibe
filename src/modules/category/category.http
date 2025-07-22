@@ -1,0 +1,34 @@
+### 📦 Get All Categories
+GET http://localhost:3000/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyODQ2NDMwLCJleHAiOjE3NTI4ODk2MzB9.netAU8rUi0DTIxrqfHwVz6NKTNXylTHzGvAPcKJjOUM
+
+###
+
+### ➕ Create Category (Admin Only)
+POST http://localhost:3000/categories
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMDk1NDY0LCJleHAiOjE3NTMxMzg2NjR9.dCs2r5I1d7Ysvw6TG-hHJdknszf4CAB5KPwSbTgY1Sg
+
+{
+  "name": "Iphones",
+  "slug": "All-iphones-gadgets"
+}
+
+###
+
+### ✏️ Update Category (Admin Only)
+PATCH http://localhost:3000/categories/32d315b9-f7e7-412e-9894-6accfdec443b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyODQ2NDMwLCJleHAiOjE3NTI4ODk2MzB9.netAU8rUi0DTIxrqfHwVz6NKTNXylTHzGvAPcKJjOUM
+
+{
+  "name": "Updated Category Name",
+  "slug": "Updated description"
+}
+
+###
+
+### ❌ Delete Category (Admin Only)
+DELETE http://localhost:3000/categories/726309af-efd4-45ed-a9f1-126e753e4f99
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyODQ2NDMwLCJleHAiOjE3NTI4ODk2MzB9.netAU8rUi0DTIxrqfHwVz6NKTNXylTHzGvAPcKJjOUM
+

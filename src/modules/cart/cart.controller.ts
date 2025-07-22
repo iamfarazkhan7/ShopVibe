@@ -13,6 +13,7 @@ import { CurrentUser } from 'src/decorators/current-user.decorator';
 import { UserPayload } from 'src/types/user-payload.interface';
 import { AddToCartDto, UpdateCartItemDto } from 'src/dtos/cart-item.dto';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { ApiResponse } from 'src/helper/api-response';
 
 @Controller('cart')
 export class CartController {
@@ -20,31 +21,38 @@ export class CartController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  getCart(@CurrentUser() user: UserPayload) {
-    return this.cartService.getCart(user.userId);
+  async getCart(@CurrentUser() user: UserPayload) {
+    const cart = await this.cartService.getCart(user.userId);
+    return ApiResponse.success('Cart fetched successfully', cart);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('add')
-  addToCart(@CurrentUser() user: UserPayload, @Body() dto: AddToCartDto) {
-    return this.cartService.addToCart(user.userId, dto);
+  async addToCart(@CurrentUser() user: UserPayload, @Body() dto: AddToCartDto) {
+    const item = await this.cartService.addToCart(user.userId, dto);
+    return ApiResponse.success('Item added to cart successfully', item);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch('update')
-  updateCartItem(
+  async updateCartItem(
     @CurrentUser() user: UserPayload,
     @Body() dto: UpdateCartItemDto,
   ) {
-    return this.cartService.updateCartItem(user.userId, dto);
+    const item = await this.cartService.updateCartItem(user.userId, dto);
+    return ApiResponse.success('Cart item updated successfully', item);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete('remove')
-  removeFromCart(
+  async removeFromCart(
     @CurrentUser() user: UserPayload,
     @Query('productId') productId: string,
   ) {
-    return this.cartService.removeFromCart(user.userId, productId);
+    const result = await this.cartService.removeFromCart(
+      user.userId,
+      productId,
+    );
+    return ApiResponse.success('Item removed from cart successfully', result);
   }
 }

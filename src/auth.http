@@ -22,25 +22,7 @@ Content-Type: application/json
 
 ###
 
-### 👤 Get Current User
-GET http://localhost:3000/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
 
-###
-
-### ✏️ Update Profile (name, avatar, phone)
-PATCH http://localhost:3000/auth/me
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
-
-{
-  "name": "Updated Faraz",
-  "avatarUrl": "https://example.com/avatar.jpg",
-  "phone": "+923001234567",
-  "role": "ADMIN"
-}
-
-###
 
 ### 🔁 Refresh Access Token
 POST http://localhost:3000/auth/refresh
@@ -69,100 +51,6 @@ PATCH http://localhost:3000/auth/logout
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
 
 
-### 📦 Get All Categories
-GET http://localhost:3000/categories
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyODQ2NDMwLCJleHAiOjE3NTI4ODk2MzB9.netAU8rUi0DTIxrqfHwVz6NKTNXylTHzGvAPcKJjOUM
-
-###
-
-### ➕ Create Category (Admin Only)
-POST http://localhost:3000/categories
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMDk1NDY0LCJleHAiOjE3NTMxMzg2NjR9.dCs2r5I1d7Ysvw6TG-hHJdknszf4CAB5KPwSbTgY1Sg
-
-{
-  "name": "Iphones",
-  "slug": "All-iphones-gadgets"
-}
-
-###
-
-### ✏️ Update Category (Admin Only)
-PATCH http://localhost:3000/categories/32d315b9-f7e7-412e-9894-6accfdec443b
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyODQ2NDMwLCJleHAiOjE3NTI4ODk2MzB9.netAU8rUi0DTIxrqfHwVz6NKTNXylTHzGvAPcKJjOUM
-
-{
-  "name": "Updated Category Name",
-  "slug": "Updated description"
-}
-
-###
-
-### ❌ Delete Category (Admin Only)
-DELETE http://localhost:3000/categories/726309af-efd4-45ed-a9f1-126e753e4f99
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyODQ2NDMwLCJleHAiOjE3NTI4ODk2MzB9.netAU8rUi0DTIxrqfHwVz6NKTNXylTHzGvAPcKJjOUM
-
-### ➕ Create Product (Admin Only)
-POST http://localhost:3000/product
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMDk1NDY0LCJleHAiOjE3NTMxMzg2NjR9.dCs2r5I1d7Ysvw6TG-hHJdknszf4CAB5KPwSbTgY1Sg
-
-{
-  "title": "iPhone 12",
-  "description": "Latest Apple phone",
-  "price": 700.00,
-  "stock": 15,
-  "images": ["https://cdn.apple.com/iphone15.jpg"],
-  "categoryId": "7d328f92-0064-4cd3-85ac-89ee8f407ae9"
-}
-
-### ✏️ Update Product (Admin Only)
-PATCH http://localhost:3000/product/97991d6b-2df3-4e37-9a3c-7caff01412b4
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMDk1NDY0LCJleHAiOjE3NTMxMzg2NjR9.dCs2r5I1d7Ysvw6TG-hHJdknszf4CAB5KPwSbTgY1Sg
-
-{
-  "price": 800,
-  "stock": 10
-}
-
-### ❌ Delete Product (Admin Only)
-DELETE http://localhost:3000/product/9d123b72-dea0-4563-b6dd-3cca1951cacb
-
-### 📦 Get All Products (with filters)
-GET http://localhost:3000/product?category=&minPrice=100&maxPrice=&search=iphone+11&minRating=
-
-### 📦 Get Product by ID
-GET http://localhost:3000/product/9d123b72-dea0-4563-b6dd-3cca1951cacb
 
 
-### 📦 Get Cart
-GET http://localhost:3000/cart
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo
 
-
-### ➕ Add to Cart
-POST http://localhost:3000/cart/add
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo
-
-{
-  "productId": "dd470007-41c8-4a32-b11a-cb98d4d0587b",
-  "quantity": 9
-}
-
-
-### ✏️ Update Cart Item Quantity
-PATCH http://localhost:3000/cart/update
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo
-
-{
-  "productId": "97991d6b-2df3-4e37-9a3c-7caff01412b4",
-  "quantity": 5
-}
-
-### ❌ Remove Item from Cart
-DELETE http://localhost:3000/cart/remove?productId=dd470007-41c8-4a32-b11a-cb98d4d0587b
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTA2MDc3LCJleHAiOjE3NTMxNDkyNzd9.Inzozfj-YaIhHg0Q8DkPiSk9E8m0-6sRVUi4h52uVIo

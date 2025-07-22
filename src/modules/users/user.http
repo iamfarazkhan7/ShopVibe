@@ -1,0 +1,19 @@
+### 👤 Get Current User
+GET http://localhost:3000/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
+
+###
+
+### ✏️ Update Profile (name, avatar, phone)
+PATCH http://localhost:3000/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUyNzUxNDg4LCJleHAiOjE3NTI3OTQ2ODh9.41hPG3Iw5aAFz0t22pv4D0L08jJlHJDpZhfjbesW3b0
+
+{
+  "name": "Updated Faraz",
+  "avatarUrl": "https://example.com/avatar.jpg",
+  "phone": "+923001234567",
+  "role": "ADMIN"
+}
+
+###
