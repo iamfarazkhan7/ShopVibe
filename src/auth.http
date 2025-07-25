@@ -52,5 +52,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3Z
 
 
 
-
-
+### 🚪 Admin
+GET  http://localhost:3000/admin/stats
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMzU0NjEyLCJleHAiOjE3NTMzOTc4MTJ9.O4OHwaR8Bfa9G_1kYpcyDqDGOD3vmw9SIoT6XOFbFVY

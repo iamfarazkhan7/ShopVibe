@@ -1,0 +1,37 @@
+### 📮 Create Address
+POST http://localhost:3000/address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMzQ1OTAzLCJleHAiOjE3NTMzODkxMDN9.yqrCG0UgNs66Wr7iJQ1_geFIlFGI_ADrlETzcgtU5RQ
+
+{
+  "fullName": "fk Doe",
+  "phone": "0312145454",
+  "country": "Pakistan",
+  "city": "Islamabad",
+  "postalCode": "66000",
+  "street": "House 123, fgrtfrt Town",
+  "province": "Punjab",
+  "isDefault": false
+}
+
+
+
+### 📦 Get All Addresses
+GET http://localhost:3000/address
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMzQ1OTAzLCJleHAiOjE3NTMzODkxMDN9.yqrCG0UgNs66Wr7iJQ1_geFIlFGI_ADrlETzcgtU5RQ
+
+
+### ✏️ Update Address
+PATCH http://localhost:3000/address/3ef820f6-408e-4bb8-a903-c203100cd396
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMzQ1OTAzLCJleHAiOjE3NTMzODkxMDN9.yqrCG0UgNs66Wr7iJQ1_geFIlFGI_ADrlETzcgtU5RQ
+
+{
+  "fullName": "dasass Name",
+  "city": "Karachi"
+}
+
+
+### ❌ Delete Address
+DELETE http://localhost:3000/address/3ef820f6-408e-4bb8-a903-c203100cd396
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMmY4ZWQ3ZC1iMGQ4LTQzNDItODIzNC1lMTE4YWI4NmI3MDAiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMzQ1OTAzLCJleHAiOjE3NTMzODkxMDN9.yqrCG0UgNs66Wr7iJQ1_geFIlFGI_ADrlETzcgtU5RQ

@@ -23,6 +23,7 @@ model User {
   cart          Cart?
   orders        Order[]
   reviews       Review[]
+  addresses     Address[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -97,6 +98,8 @@ model Order {
   items     OrderItem[]
   total     Float
   status    OrderStatus @default(PENDING)
+  address   Address?  @relation(fields: [addressId], references: [id])
+  addressId String?
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 }
@@ -123,4 +126,22 @@ model Review {
   product Product @relation(fields: [productId], references: [id])
 
   @@unique([userId, productId], name: "userId_productId")
+}
+
+model Address {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  fullName   String
+  phone      String
+  street     String
+  city       String
+  province   String
+  country    String
+  postalCode String
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  orders     Order[]
 }
